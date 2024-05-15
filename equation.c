@@ -24,12 +24,16 @@ void mandelbrot_equation(int max_hight, int max_width, char*address,int bpp, int
     double index;
     double  k_scaled;
     double  j_scaled;
+    int display;
+    // t_param *tpar;
+    // tpar = malloc(sizeof(t_param));
     //double c;
 
     z1 = 0;
     z2 = 0;
     index = 0;
     k = 0;
+    display =0;
     while( k != max_hight)
     {
         j = 0;
@@ -40,14 +44,24 @@ void mandelbrot_equation(int max_hight, int max_width, char*address,int bpp, int
             z2 = 0;
             k_scaled = scale(k, -2, 2, 0, 800);
             j_scaled = scale(j, 2, -2, 0, 800);
-            while(index < 200)
+            while(index <= 50)
             {
+                display =0;
                 produit(&z1,&z2,z1, z2);
                 somme(&z1,&z2, k_scaled, j_scaled);
-                // printf("z1 =%f z2=%f\n", z1, z2);
-                // if (index == 20)
-                // exit(0);
-                if(print_color(z1, z2,address, bpp, line_len, k, j)==0)
+                if(index<=5)
+                    display=5;
+                else if(index<=10)
+                    display=10;
+                else if(index<=20)
+                    display = 20;
+                else if(index<=30)
+                    display = 30;
+                else if(index<=40)
+                    display = 40;
+                else if(index<=50)
+                    display =50;
+                if(print_color(z1, z2,address, bpp, line_len, k, j, display)==0)
                     index++;
                 else
                     break;

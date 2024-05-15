@@ -1,0 +1,2 @@
+$(Name) = fractol
+$(CC) = cc
