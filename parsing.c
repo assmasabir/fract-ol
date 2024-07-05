@@ -19,7 +19,7 @@ int parse_julia_param(char* str)
         else
             return(1);
     }
-    if((count == 0 && (str[i-1] != '-' || str[i-1] != '+')) || count == 1)
+    if((count == 0 && (str[i-1] != '-' && str[i-1] != '+')) || (count == 1 && (str[0] != '.' || i != 1)))
         return (0);
     else
         return(1);
@@ -81,6 +81,12 @@ int ft_strcmp(char *str1, char*str2)
     }
     return(str1[i]-str2[i]);
 }
+void print_error_and_exit(t_params *par)
+{
+    write(2, "mandelbrot: mandelbrot\n julia: julia <real> <imaginary>\n", 56);
+    free(par);
+    exit(EXIT_FAILURE);
+}
 
 int parse_input(int argc, char **argv, t_params *par)
 {
@@ -91,25 +97,21 @@ int parse_input(int argc, char **argv, t_params *par)
         return(1);
     else if(ft_strcmp(argv[1], "julia")==0 && argv[2] && argv[3])
     {
-        if(parse_julia_param(argv[2])==0 && parse_julia_param(argv[3])==0)
+        if(parse_julia_param(argv[2])==1 || parse_julia_param(argv[3])==1)
+        {
+            print_error_and_exit(par);
+            return(0);
+        }
+        else
         {
             par->j1 = atod(argv[2]);
             par->j2 = atod(argv[3]);
             return(2);
         }
-        else
-        {
-            write(2, "mandelbrot: mandelbrot\n julia: julia <real> <imaginary>\n", 56);
-            free(par);
-            exit(EXIT_FAILURE);
-            return(0);
-        }
     }
     else
     {
-        write(2, "mandelbrot: mandelbrot\n julia: julia <real> <imaginary>\n", 56);
-        free(par);
-        exit(EXIT_FAILURE);
+        print_error_and_exit(par);
         return(0);
     }
 }

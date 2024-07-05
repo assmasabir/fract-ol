@@ -43,8 +43,13 @@ void fill_window(t_params *par, int check)
 }
 int main (int argc, char **argv)
 {
-    t_params *par;
     int j;
+    t_params *par;
+    if(argc==1)
+    {
+        write(2, "mandelbrot: mandelbrot\n julia: julia <real> <imaginary>\n", 56);
+        exit(EXIT_FAILURE);
+    }        
     par = malloc(sizeof(t_params));
     j = parse_input(argc, argv, par);
     par->facteur =1;
