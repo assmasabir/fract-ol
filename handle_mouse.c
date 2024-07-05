@@ -17,7 +17,7 @@ int mouse_hundler(int button, int x, int y, t_params *par)
         i=0;
         while(i <1000)
         {
-            equation(par, i, j);
+            mandelbrot(par, i, j);
             i++;
         }
         j++;

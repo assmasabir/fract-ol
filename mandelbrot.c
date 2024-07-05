@@ -36,7 +36,7 @@ int set_display(int i, int *display)
         return (1);
 }
 
-void equation(t_params* par, int i, int j)
+void mandelbrot(t_params* par, int i, int j)
 {
     double i_scaled;
     double j_scaled;
@@ -44,11 +44,11 @@ void equation(t_params* par, int i, int j)
     int index;
 
     index = 0;
-    par->z1 = scale(-2, 2, 1000, 0, i)*par->facteur;
-    par->z2 = scale(2, -2, 1000, 0, j)*par->facteur;
-    i_scaled = 0.01;
-    j_scaled = 0.4;
-    par->display = 0; // Z(n + 1) = Zn * Zn + c
+    par->z1 = 0;
+    par->z2 = 0;
+    i_scaled = scale(-2, 2, 1000, 0, i)*par->facteur;
+    j_scaled =  scale(2, -2, 1000, 0, j)*par->facteur;
+    par->display = 0;
     while(index<=100)
     {
         multiplication(&par->z2, &par->z1, par->z2, par->z1);
