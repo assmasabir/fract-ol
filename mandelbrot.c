@@ -29,20 +29,20 @@ void	multiplication(double *img, double *reel, double img2, double reel2)
 
 int	set_display(int i, int *display)
 {
-	if (i <= 10)
+	if (i <= 5)
+		*display = 5;
+	else if (i <= 10)
 		*display = 10;
+	else if (i <= 15)
+		*display = 15;
 	else if (i <= 20)
 		*display = 20;
+	else if (i <= 25)
+		*display = 25;
 	else if (i <= 30)
-		*display = 20;
+		*display = 30;
 	else if (i <= 40)
 		*display = 40;
-	else if (i <= 50)
-		*display = 50;
-	else if (i <= 70)
-		*display = 70;
-	else if (i <= 90)
-		*display = 90;
 	else if (i <= 100)
 		*display = 100;
 	return (1);

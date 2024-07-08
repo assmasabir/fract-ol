@@ -12,29 +12,61 @@
 
 #include "fractol.h"
 
-int	mouse_hundler(int button, int x, int y, t_params *par)
+void	mandelbrot_or_julia(t_params *par, int i, int j)
+{
+	if (par->check == 1)
+		mandelbrot(par, i, j);
+	if (par->check == 2)
+		julia(par, i, j);
+}
+
+int	zoom0(t_params *par)
+{
+	if (par->click[0] == 1)
+		par->facteur -= 0.05;
+	else if (par->click[1] == 1)
+		par->facteur += 0.05;
+	return (0);
+}
+
+int	press(int button, t_params *par)
+{
+	if (button == 65451)
+		par->click[0] = 1;
+	else if (button == 65453)
+		par->click[1] = 1;
+	if (button == 65307)
+		on_destroy(par);
+	return (0);
+}
+
+int	release(int button, t_params *par)
+{
+	if (button == 65451)
+		par->click[0] = 0;
+	else if (button == 65453)
+		par->click[1] = 0;
+	return (0);
+}
+
+int	mouse_hundler(t_params *par)
 {
 	int	i;
 	int	j;
 
-	(void)x;
-	(void)y;
 	i = 0;
 	j = 0;
-	if (button == 4)
-		par->facteur *= 0.95;
-	else if (button == 5)
-		par->facteur *= 1.1;
-	while (j < 1000)
+	while (j < HEIGH)
 	{
 		i = 0;
-		while (i < 1000)
+		while (i < WIDTH)
 		{
-			mandelbrot(par, i, j);
+			mandelbrot_or_julia(par, i, j);
 			i++;
 		}
 		j++;
 	}
 	mlx_put_image_to_window(par->connection, par->window, par->img, 0, 0);
+	zoom0(par);
 	return (0);
 }

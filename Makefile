@@ -1,7 +1,7 @@
 NAME = fractol
 CC = cc
 CFLAGS = -Wall -Wextra -Werror 
-FCLAGS = libmlx_Linux.a -Lmlx_linux  -Imlx_linux -lXext -lX11 -lm
+FCLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 SRC =\
 	fract_ol.c \

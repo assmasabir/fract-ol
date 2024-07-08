@@ -22,13 +22,6 @@ int	on_destroy(t_params *par)
 	exit(0);
 }
 
-int	escape(int keycode, t_params *par)
-{
-	if (keycode == 65307)
-		on_destroy(par);
-	return (1);
-}
-
 void	fill_window(t_params *par, int check)
 {
 	int	i;
@@ -38,10 +31,10 @@ void	fill_window(t_params *par, int check)
 	j = 0;
 	if (check == 0)
 		return ;
-	while (j < 1000)
+	while (j < HEIGH)
 	{
 		i = 0;
-		while (i < 1000)
+		while (i < WIDTH)
 		{
 			if (check == 1)
 				mandelbrot(par, i, j);
@@ -64,17 +57,18 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	par = malloc(sizeof(t_params));
-	(void)parse_input(argc, argv, par);
+	par->click[0] = 0;
+	par->click[1] = 0;
+	par->check = parse_input(argc, argv, par);
 	par->facteur = 1;
 	par->connection = mlx_init();
-	par->window = mlx_new_window(par->connection, 1000, 1000, "fract-OL");
-	par->img = mlx_new_image(par->connection, 1000, 1000);
+	par->window = mlx_new_window(par->connection, WIDTH, HEIGH, "fract-OL");
+	par->img = mlx_new_image(par->connection, WIDTH, HEIGH);
 	par->address = mlx_get_data_addr(par->img, &(par->bits_per_pixel),
 			&(par->size_line), &(par->endian));
-	fill_window(par, parse_input(argc, argv, par));
-	mlx_put_image_to_window(par->connection, par->window, par->img, 0, 0);
-	mlx_mouse_hook(par->window, mouse_hundler, par);
-	mlx_hook(par->window, 17, 1, on_destroy, par);
-	mlx_key_hook(par->window, escape, par);
+	mlx_hook(par->window, ON_DESTROY, 0, on_destroy, par);
+	mlx_hook(par->window, ON_KEYDOWN, (1L << 0), press, par);
+	mlx_hook(par->window, ON_KEYUP, (1L << 1), release, par);
+	mlx_loop_hook(par->connection, mouse_hundler, par);
 	mlx_loop(par->connection);
 }

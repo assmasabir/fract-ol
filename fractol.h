@@ -19,6 +19,12 @@
 # include <string.h>
 # include <unistd.h>
 
+# define WIDTH 500
+# define HEIGH 500
+# define ON_DESTROY 17
+# define ON_KEYDOWN 2
+# define ON_KEYUP 3
+
 typedef struct params
 {
 	void	*connection;
@@ -34,12 +40,14 @@ typedef struct params
 	double	facteur;
 	double	j1;
 	double	j2;
+	int		check;
+	int		click[2];
 }			t_params;
 
 int			print_color(t_params *par, int i, int j);
 int			ft_strcmp(char *str1, char *str2);
 int			set_display(int i, int *display);
-int			mouse_hundler(int button, int x, int y, t_params *par);
+int			mouse_hundler(t_params *par);
 void		mandelbrot(t_params *par, int i, int j);
 double		scale(double a, double b, double i);
 void		my_mlx_pixel_put(t_params *par, int j, int i, int color);
@@ -48,4 +56,8 @@ int			parse_input(int argc, char **argv, t_params *par);
 void		multiplication(double *img, double *reel, double img2,
 				double reel2);
 void		somme(double *img, double *reel, double img2, double reel2);
+int			zoom(int button, int x, int y, t_params *par);
+int			press(int button, t_params *par);
+int			on_destroy(t_params *par);
+int			release(int button, t_params *par);
 #endif
