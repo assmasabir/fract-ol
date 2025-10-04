@@ -14,9 +14,7 @@
 # define FRACTOL_H
 # include <math.h>
 # include <mlx.h>
-# include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
 # include <unistd.h>
 
 # define WIDTH 500
@@ -24,6 +22,8 @@
 # define ON_DESTROY 17
 # define ON_KEYDOWN 2
 # define ON_KEYUP 3
+# define ON_MOUSEDOWN 4
+# define ON_MOUSEUP 5
 
 typedef struct params
 {
@@ -56,8 +56,6 @@ int			parse_input(int argc, char **argv, t_params *par);
 void		multiplication(double *img, double *reel, double img2,
 				double reel2);
 void		somme(double *img, double *reel, double img2, double reel2);
-int			zoom(int button, int x, int y, t_params *par);
-int			press(int button, t_params *par);
+int			move(int button, int x, int y, t_params *par);
 int			on_destroy(t_params *par);
-int			release(int button, t_params *par);
 #endif

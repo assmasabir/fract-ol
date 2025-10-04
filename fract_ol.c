@@ -22,6 +22,13 @@ int	on_destroy(t_params *par)
 	exit(0);
 }
 
+int	press(int button, t_params *par)
+{
+	if (button == 65307)
+		on_destroy(par);
+	return (0);
+}
+
 void	fill_window(t_params *par, int check)
 {
 	int	i;
@@ -67,8 +74,9 @@ int	main(int argc, char **argv)
 	par->address = mlx_get_data_addr(par->img, &(par->bits_per_pixel),
 			&(par->size_line), &(par->endian));
 	mlx_hook(par->window, ON_DESTROY, 0, on_destroy, par);
-	mlx_hook(par->window, ON_KEYDOWN, (1L << 0), press, par);
-	mlx_hook(par->window, ON_KEYUP, (1L << 1), release, par);
+	mlx_hook(par->window, ON_MOUSEUP, 4, move, par);
+	mlx_hook(par->window, ON_MOUSEDOWN, 8, move, par);
+	mlx_hook(par->window, ON_KEYUP, 2, press, par);
 	mlx_loop_hook(par->connection, mouse_hundler, par);
 	mlx_loop(par->connection);
 }

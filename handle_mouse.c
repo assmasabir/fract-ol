@@ -20,7 +20,7 @@ void	mandelbrot_or_julia(t_params *par, int i, int j)
 		julia(par, i, j);
 }
 
-int	zoom0(t_params *par)
+int	zoom(t_params *par)
 {
 	if (par->click[0] == 1)
 		par->facteur -= 0.05;
@@ -29,23 +29,14 @@ int	zoom0(t_params *par)
 	return (0);
 }
 
-int	press(int button, t_params *par)
+int	move(int button, int x, int y, t_params *par)
 {
-	if (button == 65451)
+	(void)x;
+	(void)y;
+	if (button == 5)
 		par->click[0] = 1;
-	else if (button == 65453)
+	else if (button == 4)
 		par->click[1] = 1;
-	if (button == 65307)
-		on_destroy(par);
-	return (0);
-}
-
-int	release(int button, t_params *par)
-{
-	if (button == 65451)
-		par->click[0] = 0;
-	else if (button == 65453)
-		par->click[1] = 0;
 	return (0);
 }
 
@@ -67,6 +58,8 @@ int	mouse_hundler(t_params *par)
 		j++;
 	}
 	mlx_put_image_to_window(par->connection, par->window, par->img, 0, 0);
-	zoom0(par);
+	zoom(par);
+	par->click[0] = 0;
+	par->click[1] = 0;
 	return (0);
 }

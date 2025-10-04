@@ -92,7 +92,8 @@ int	parse_input(int argc, char **argv, t_params *par)
 {
 	if (ft_strcmp(argv[1], "mandelbrot") == 0 && argc == 2)
 		return (1);
-	else if (ft_strcmp(argv[1], "julia") == 0 && argv[2] && argv[3])
+	else if (ft_strcmp(argv[1], "julia") == 0 && argv[2] && argv[3]
+		&& argc == 4)
 	{
 		if (parse_julia_param(argv[2]) == 1 || parse_julia_param(argv[3]) == 1)
 		{
